@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="BalonPie.IndicadorFormulario"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BalonPie"
+             mc:Ignorable="d">
+    <Grid x:Name="IndicadorGrid" Margin="0 0 0 10"
+          Width="170"
+          Height="25"
+          Background="#FF00558B">
+        <!-- TextBox para la entrada de texto del usuario -->
+        <TextBox x:Name="userText"
+                 Height="25"
+                 FontSize="17"
+                 FontFamily="OCR A Extended"
+                 Foreground="White"
+                 Background="Transparent"
+                 VerticalContentAlignment="Center"
+                 TextChanged="userText_TextChanged"/>
+        <!-- TextBox para mostrar la pista -->
+        <TextBox x:Name="tbPista"
+                 Height="25"
+                 FontSize="17"
+                 FontFamily="OCR A Extended"
+                 Background="#FF00558B"
+                 Foreground="LightGray"
+                 Text="{Binding Pista}"
+                 IsReadOnly="True"
+                 VerticalAlignment="Center"
+                 Padding="5 0 0 0"
+                 Panel.ZIndex="-1"/>
+    </Grid>
+</UserControl>

@@ -1,0 +1,106 @@
+﻿<Window x:Class="BalonPie.CrearJugadorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BalonPie"
+        mc:Ignorable="d"
+        Title="Jugador" Height="390" Width="450"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner">
+    <!--Logo de la ventana-->
+    <Window.Icon>
+        <ImageSource>./img/logo7.jpeg</ImageSource>
+    </Window.Icon>
+    <Grid>
+        <!--Fondo del Grid-->
+        <Grid.Background>
+            <ImageBrush ImageSource="img/estadio1.jpeg" 
+                        Stretch="UniformToFill"
+                        Opacity="1"/>
+        </Grid.Background>
+        <!--Definición de filas y columnas-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width=".8*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <!-- StackPanel con componentes para el Placeholder del formulario -->
+        <StackPanel Grid.Row="0"
+                    Grid.RowSpan="2"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Margin="10 20 0 0">
+            <local:IndicadorFormulario x:Name="playerId" Pista="ID"/>
+            <local:IndicadorFormulario x:Name="playerNombre" Pista="Nombre"/>
+            <local:IndicadorFormulario x:Name="playerApellidos" Pista="Apellidos"/>
+            <local:IndicadorFormulario x:Name="playerApodo" Pista="Apodo"/>
+            <local:IndicadorFormulario x:Name="playerEdad" Pista="Edad"/>
+            <local:IndicadorFormulario x:Name="playerDorsal" Pista="Dorsal"/>
+            <local:IndicadorFormulario x:Name="playerNacionalidad" Pista="Nacionalidad"/>
+            <ComboBox x:Name="equipoOpciones"
+                      DisplayMemberPath="nombre"/>
+        </StackPanel>
+        <!-- Imagen por defecto del jugador que aparece cuando no hay ninguna imagen seleccionada -->
+        <Image Grid.Row="0"
+               Grid.Column="1"
+               VerticalAlignment="Top"
+               Margin="0 20 0 0"
+               Width="180"
+               Height="180"
+               Stretch="UniformToFill"
+               Source="img/player.png">
+            <Image.Style>
+                <Style TargetType="Image">
+                    <Setter Property="Visibility" Value="Hidden"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Source, ElementName=imagenNuevoJugador}" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Image.Style>
+        </Image>
+        <!-- Imagen para elegir la nueva imagen del jugador -->
+        <Image x:Name="imagenNuevoJugador"
+               Grid.Row="0"
+               Grid.Column="1"
+               VerticalAlignment="Top"
+               Margin="0 20 0 0"
+               Width="180"
+               Height="180"
+               Stretch="Uniform"/>
+        <!-- StackPanel con botones de acción -->
+        <StackPanel Grid.Row="1"
+                    Grid.Column="0"
+                    Orientation="Horizontal"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+            <local:PersonalButton x:Name="btnGuardar" Grid.Row="1" 
+                                  Grid.Column="0"
+                                  TextButton="GUARDAR"
+                                  Margin="0 0 10 0"
+                                  Ancho="55"
+                                  Alto="15"
+                                  MouseLeftButtonDown="GuardarJugador"/>
+            <local:PersonalButton Grid.Row="1"
+                                  Grid.Column="0"
+                                  TextButton="CANCELAR"
+                                  Ancho="55"
+                                  Alto="15"
+                                  MouseLeftButtonDown="Cancelar"/>
+        </StackPanel>
+        <!-- Botón para elegir la imagen del jugador -->
+        <local:PersonalButton x:Name="btnElegirImagen" Grid.Row="1"
+                              Grid.Column="1"
+                              VerticalAlignment="Center"
+                              HorizontalAlignment="Center"
+                              TextButton="ELEGIR IMAGEN"
+                              Ancho="100"
+                              Alto="15"
+                              MouseLeftButtonDown="SeleccionarImagen"/>
+    </Grid>
+</Window>

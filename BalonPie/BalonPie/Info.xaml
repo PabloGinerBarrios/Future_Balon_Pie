@@ -1,0 +1,358 @@
+﻿<Window x:Class="BalonPie.Info"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BalonPie"
+        mc:Ignorable="d"
+        Title="Future Balonpié" Height="500" Width="780"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
+    <!-- Icono de la ventana -->
+    <Window.Icon>
+        <ImageSource>./img/logo7.jpeg</ImageSource>
+    </Window.Icon>
+    <Window.Resources>
+        <!-- Estilo para los TabItems -->
+        <Style TargetType="TabItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Grid>
+                            <Border
+                                Name="Border"
+                                BorderThickness="1,1,1,0"
+                                BorderBrush="Gray"
+                                CornerRadius="4,4,0,0"
+                                Background="LightGray"
+                                Margin="2,0,2,0">
+                                <!-- Estilo para el contenido del TabItem -->
+                                <ContentPresenter x:Name="ContentSite"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Center"
+                                          ContentSource="Header"
+                                          Margin="10,2">
+                                    <ContentPresenter.Resources>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Foreground" Value="White"/>
+                                            <Setter Property="FontFamily" Value="OCR A Extended"/>
+                                        </Style>
+                                    </ContentPresenter.Resources>
+                                </ContentPresenter>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <!-- Triggers para cambiar la apariencia cuando se selecciona o no -->
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#FF00558B"/>
+                                <Setter TargetName="Border" Property="BorderThickness" Value="1,1,1,1"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="False">
+                                <Setter TargetName="Border" Property="Background" Value="#FF1B445D"/>
+                                <Setter TargetName="Border" Property="BorderBrush" Value="Gray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <!-- Fondo de la ventana -->
+        <Grid.Background>
+            <ImageBrush ImageSource="img/estadio1.jpeg" 
+                        Stretch="UniformToFill"
+                        Opacity="1"/>
+        </Grid.Background>
+        <!-- Contenido principal de la ventana -->
+        <TabControl Grid.Row="1"
+                    Background="Transparent">
+            <!-- Pestaña Jugadores -->
+            <TabItem Header="Jugadores">
+                <Grid>
+                    <!-- Definición de filas y columnas -->
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height=".3*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.2*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="1.2*"/>
+                    </Grid.ColumnDefinitions>
+                    <!-- ListBox de Jugadores -->
+                    <ListBox Grid.Column="0"
+                             Grid.Row="0"
+                             x:Name="listaJugadores"
+                             DisplayMemberPath="nombreCompleto"
+                             FontSize="16"
+                             FontFamily="OCR A Extended"
+                             Background="#FF00558B"
+                             Foreground="White"
+                             Margin="0 0 0 10"/>
+                    <!-- Detalles de Jugador -->
+                    <StackPanel Grid.Column="1"
+                                Grid.ColumnSpan="2"
+                                Grid.Row="0"
+                                Orientation="Vertical"
+                                VerticalAlignment="Top"
+                                HorizontalAlignment="Left"
+                                Margin="10 0 0 0">
+                        <local:Label_info LabelText="Id:"
+                                          DataText="{Binding ElementName=listaJugadores, Path=SelectedItem.id}"/>
+                        <local:Label_info LabelText="Nombre:"
+                                          DataText="{Binding ElementName=listaJugadores, Path=SelectedItem.nombre}"/>
+                        <local:Label_info LabelText="Apellidos:"
+                                          DataText="{Binding ElementName=listaJugadores, Path=SelectedItem.apellidos}"/>
+                        <local:Label_info LabelText="Apodo:"
+                                          DataText="{Binding ElementName=listaJugadores, Path=SelectedItem.apodo}"/>
+                        <local:Label_info LabelText="Edad:"
+                                          DataText="{Binding ElementName=listaJugadores, Path=SelectedItem.edad}"/>
+                        <local:Label_info LabelText="Dorsal:"
+                                          DataText="{Binding ElementName=listaJugadores, Path=SelectedItem.dorsal}"/>
+                        <local:Label_info LabelText="Nacionalidad:"
+                                          DataText="{Binding ElementName=listaJugadores, Path=SelectedItem.nacionalidad}"/>
+                        <local:Label_info LabelText="Equipo:"
+                                          DataText="{Binding ElementName=listaJugadores, Path=SelectedItem.equipo.nombre}"/>
+                    </StackPanel>
+                    <!--Sección de imágenes-->
+                    <StackPanel Grid.Row="0"
+                                Grid.Column="2"
+                                Grid.RowSpan="2"
+                                VerticalAlignment="Top"
+                                HorizontalAlignment="Center">
+                        <StackPanel VerticalAlignment="Top"
+                                    HorizontalAlignment="Left"
+                                    Orientation="Vertical"
+                                    Margin="5 0 0 10">
+                            <!--Rótullo de la imagen del jugador seleccionado-->
+                            <local:Rotulo_neon Text="Jugador"
+                                               HorizontalAlignment="Center"
+                                               Foreground="White"
+                                               FontSize="25">
+                                    <local:Rotulo_neon.Style>
+                                        <Style TargetType="local:Rotulo_neon">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ElementName=listaJugadores, Path=SelectedItem}" Value="{x:Null}">
+                                                    <Setter Property="Visibility" Value="Hidden"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </local:Rotulo_neon.Style>
+                            </local:Rotulo_neon>
+                            <!--Imagen del jugador seleccionado-->
+                            <Image Height="170"
+                                   Width="170"
+                                   VerticalAlignment="Top"
+                                   HorizontalAlignment="Center"
+                                   Stretch="Uniform"
+                                   Source="{Binding ElementName=listaJugadores, Path=SelectedItem.imagen}"/>
+                        </StackPanel>
+                        <StackPanel VerticalAlignment="Bottom"
+                                    HorizontalAlignment="Left"
+                                    Orientation="Vertical"
+                                    Margin="5 0 0 0">
+                            <!--Rótulo de la imagen del equipo del jugador seleccionado-->
+                            <local:Rotulo_neon Text="Equipo"
+                                               HorizontalAlignment="Center"
+                                               Foreground="White"
+                                               FontSize="25">
+                                <local:Rotulo_neon.Style>
+                                    <Style TargetType="local:Rotulo_neon">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=listaJugadores, Path=SelectedItem}" Value="{x:Null}">
+                                                <Setter Property="Visibility" Value="Hidden"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </local:Rotulo_neon.Style>
+                            </local:Rotulo_neon>
+                            <!--Imagen del equipo del jugador seleccionado-->
+                            <Image Height="170"
+                                   Width="170"
+                                   VerticalAlignment="Top"
+                                   HorizontalAlignment="Center"
+                                   Stretch="Uniform"
+                                   Source="{Binding ElementName=listaJugadores, Path=SelectedItem.equipo.imagen}"/>
+                         </StackPanel>
+                    </StackPanel>
+                    <!--Sección para los botones de acción-->
+                    <StackPanel Grid.Row="1"
+                                Grid.Column="0"
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="6,0,0,0">
+                        <local:PersonalButton x:Name="btnAñadirJugador" TextButton="AÑADIR"
+                                              Margin="0 0 3 0"
+                                              Ancho="55"
+                                              Alto="16"
+                                              MouseLeftButtonDown="AñadirJugador"/>
+                        <local:PersonalButton TextButton="EDITAR"
+                                              Ancho="55"
+                                              Alto="16"
+                                              MouseLeftButtonDown="EditarJugador"/>
+                        <local:PersonalButton TextButton="ELIMINAR"
+                                              Margin="3 0 0 0"
+                                              Ancho="55"
+                                              Alto="16"
+                                              MouseLeftButtonDown="EliminarJugador"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <!-- Pestaña Equipos -->
+            <TabItem Header="Equipos">
+                <Grid>
+                    <!-- Definición de filas y columnas -->
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height=".5*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.2*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="1.2*"/>
+                    </Grid.ColumnDefinitions>
+                    <!-- ListBox de Equipos -->
+                    <ListBox Grid.Column="0"
+                             x:Name="listaEquipos"
+                             DisplayMemberPath="nombre"
+                             FontSize="16"
+                             FontFamily="OCR A Extended"
+                             Background="#FF00558B"
+                             Foreground="White"/>
+                    <!-- Detalles de Equipo -->
+                    <StackPanel Grid.Column="1"
+                                Grid.Row="0"
+                                Grid.RowSpan="2"
+                                Orientation="Vertical"
+                                VerticalAlignment="Top"
+                                HorizontalAlignment="Left"
+                                Margin="10 0 0 0">
+                        <local:Label_info LabelText="Id:"
+                                          DataText="{Binding ElementName=listaEquipos, Path=SelectedItem.id}"/>
+                        <local:Label_info LabelText="Nombre:"
+                                          DataText="{Binding ElementName=listaEquipos, Path=SelectedItem.nombre}"/>
+                        <local:Label_info LabelText="Fundacion:"
+                                          DataText="{Binding ElementName=listaEquipos, Path=SelectedItem.año_fundacion}"/>
+                        <local:Label_info LabelText="Estadio:"
+                                          DataText="{Binding ElementName=listaEquipos, Path=SelectedItem.nombre_estadio}"/>
+                        <!--Lista de jugadores asignados al equipo-->
+                        <StackPanel x:Name="stackList"
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Height="200"
+                                    VerticalAlignment="Bottom"
+                                    Orientation="Horizontal">
+                            <TextBlock Height="25"
+                                       Width="140"
+                                       VerticalAlignment="Top"
+                                       Background="#FF1B445D"
+                                       Foreground="White"
+                                       Margin="0 0 5 25"
+                                       TextAlignment="Right"
+                                       Padding="0 0 5 0"
+                                       FontSize="17"
+                                       FontFamily="OCR A Extended"
+                                       Text="Jugadores:"/>
+                            <ListBox x:Name="listBoxJugadores"
+                                     Height="200"
+                                     Width="180"
+                                     Background="#FF00558B"
+                                     Foreground="White"
+                                     FontSize="17"
+                                     FontFamily="OCR A Extended"
+                                     ItemsSource="{Binding ElementName=listaEquipos, Path=SelectedItem.jugadores}"
+                                     DisplayMemberPath="nombre"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <!--Sección de imágenes-->
+                    <StackPanel Grid.Row="0"
+                                Grid.Column="2"
+                                Grid.RowSpan="2"
+                                VerticalAlignment="Top"
+                                HorizontalAlignment="Center">
+                        <StackPanel VerticalAlignment="Top"
+                                    HorizontalAlignment="Left"
+                                    Orientation="Vertical"
+                                    Margin="5 0 0 10">
+                            <!--Rótulo de la imagen del equipo seleccionado-->
+                            <local:Rotulo_neon Text="Equipo"
+                                               HorizontalAlignment="Center"
+                                               Foreground="White"
+                                               FontSize="25">
+                                <local:Rotulo_neon.Style>
+                                    <Style TargetType="local:Rotulo_neon">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=listaEquipos, Path=SelectedItem}" Value="{x:Null}">
+                                                <Setter Property="Visibility" Value="Hidden"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </local:Rotulo_neon.Style>
+                            </local:Rotulo_neon>
+                            <!--Imagen del equipo seleccionado-->
+                            <Image Height="170"
+                                   Width="170"
+                                   VerticalAlignment="Top"
+                                   HorizontalAlignment="Left"
+                                   Stretch="Uniform"
+                                   Source="{Binding ElementName=listaEquipos, Path=SelectedItem.imagen}"/>
+                        </StackPanel>
+                        <StackPanel VerticalAlignment="Bottom"
+                                    HorizontalAlignment="Left"
+                                    Orientation="Vertical"
+                                    Margin="5 0 0 0">
+                            <!--Rótulo de la imagen del jugador seleccionado en la lista de jugadores asignados al equipo seleccionado-->
+                            <local:Rotulo_neon Text="Jugador"
+                                           HorizontalAlignment="Center"
+                                           Foreground="White"
+                                           FontSize="25">
+                                <local:Rotulo_neon.Style>
+                                    <Style TargetType="local:Rotulo_neon">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=listBoxJugadores, Path=SelectedItem}" Value="{x:Null}">
+                                                <Setter Property="Visibility" Value="Hidden"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </local:Rotulo_neon.Style>
+                            </local:Rotulo_neon>
+                            <!--Imagen del jugador seleccionado en la lista de jugadores asignados al equipo seleccionado-->
+                            <Image Height="170"
+                                   Width="170"
+                                   VerticalAlignment="Top"
+                                   HorizontalAlignment="Center"
+                                   Stretch="Uniform"
+                                   Source="{Binding ElementName=listBoxJugadores, Path=SelectedItem.imagen}"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <!--Sección para los botones de acción-->
+                    <StackPanel Grid.Row="1"
+                                Grid.Column="0"
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="6,0,0,0">
+                        <local:PersonalButton x:Name="btnAñadirEquipo" TextButton="AÑADIR"
+                                              Margin="0 0 3 0"
+                                              Ancho="55"
+                                              Alto="16"
+                                              MouseLeftButtonDown="AñadirEquipo"/>
+                        <local:PersonalButton TextButton="EDITAR"
+                                              Ancho="55"
+                                              Alto="16"
+                                              MouseLeftButtonDown="EditarEquipo"/>
+                        <local:PersonalButton TextButton="ELIMINAR"
+                                              Margin="3 0 0 0"
+                                              Ancho="55"
+                                              Alto="16"
+                                              MouseLeftButtonDown="EliminarEquipo"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

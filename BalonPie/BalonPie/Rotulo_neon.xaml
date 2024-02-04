@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="BalonPie.Rotulo_neon"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BalonPie"
+             mc:Ignorable="d">
+    <Grid>
+        <!-- Primer TextBlock con efecto de sombra -->
+        <TextBlock x:Name="rotulo_1" 
+                   Grid.Row="0"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Bottom"
+                   FontSize="{Binding FontSize, FallbackValue=48}" 
+                   Text="{Binding Text, FallbackValue=FUTURE BALONPIE}"
+                   FontFamily="Bahnschrift Bold SemiCondensed"
+                   Foreground="#FFD64754"
+                   Visibility="{Binding Visibility}">
+            <!-- Efecto de sombra para el primer TextBlock -->
+            <TextBlock.Effect>
+                <DropShadowEffect Color="White" 
+                          Direction="0" 
+                          ShadowDepth="0" 
+                          BlurRadius="25"/>
+            </TextBlock.Effect>
+        </TextBlock>
+        <!-- Segundo TextBlock con otro efecto de sombra -->
+        <TextBlock x:Name="rotulo_2" 
+                   Grid.Row="0"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Bottom"
+                   FontSize="{Binding FontSize, FallbackValue=48}" 
+                   Text="{Binding Text, FallbackValue=FUTURE BALONPIE}"
+                   FontFamily="Bahnschrift Light SemiCondensed"
+                   Foreground="#FFFFA7AF"
+                   Visibility="{Binding Visibility}">
+            <!-- Efecto de sombra para el segundo TextBlock -->
+            <TextBlock.Effect>
+                <DropShadowEffect Color="#FFFFC4D7" 
+                                  Direction="0" 
+                                  ShadowDepth="0" 
+                                  BlurRadius="15"/>
+            </TextBlock.Effect>
+        </TextBlock>
+    </Grid>
+</UserControl>

@@ -1,0 +1,50 @@
+﻿<Window x:Class="BalonPie.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BalonPie"
+        mc:Ignorable="d"
+        Title="Future BalonPie" Height="320" Width="500"
+        WindowStartupLocation="CenterScreen">
+    <!-- Icono de la ventana -->
+    <Window.Icon>
+        <ImageSource>./img/logo7.jpeg</ImageSource>
+    </Window.Icon>
+    <Grid>
+        <!-- Definición de filas -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <!-- Fondo del Grid -->
+        <Grid.Background>
+            <ImageBrush ImageSource="img/estadio1.jpeg" Stretch="UniformToFill"/>
+        </Grid.Background>
+        <!-- Rótulo de la aplicación -->
+        <local:Rotulo_neon Fontsize="48"
+                           Text="FUTURE BALONPIE"
+                           Margin="0 0 0 30"/>
+        <!-- Sección para los botones -->
+        <StackPanel Grid.Row="1" 
+                    Orientation="Vertical">
+            <local:PersonalButton x:Name="btnInicio"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  TextButton="Iniciar"
+                                  Ancho="100"
+                                  Alto="30"
+                                  TamañoLetra="20"
+                                  Margin="0 20 0 20"
+                                  MouseLeftButtonDown="Iniciar"/>
+            <local:PersonalButton x:Name="info"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  TextButton="Info"
+                                  Ancho="50"
+                                  Alto="23"
+                                  TamañoLetra="15"
+                                  MouseLeftButtonDown="Info"/>
+        </StackPanel>
+    </Grid>
+</Window>
